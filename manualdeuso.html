@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manual do Tema — Clínica Nodari</title>
+  <style>
+    :root {
+      --teal:        #00a6af;
+      --teal-deep:   #0e6e73;
+      --teal-light:  #e3f5f6;
+      --yellow:      #fcc81f;
+      --dark:        #1a2b3c;
+      --text:        #2D3748;
+      --muted:       #718096;
+      --border:      #d4eef0;
+      --white:       #ffffff;
+      --bg-soft:     #f4fbfb;
+      --radius:      10px;
+      --shadow:      0 4px 24px rgba(0,166,175,0.10);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #f0f4f8;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── Layout ── */
+    .layout { display: flex; height: 100vh; overflow: hidden; }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 280px;
+      flex-shrink: 0;
+      background: var(--dark);
+      color: #fff;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 0 0 40px;
+    }
+
+    .sidebar__brand {
+      padding: 28px 24px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 8px;
+    }
+
+    .sidebar__logo {
+      width: 36px; height: 36px;
+      background: var(--teal);
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .sidebar__title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+    }
+
+    .sidebar__sub {
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      margin-top: 2px;
+    }
+
+    .sidebar nav ul { list-style: none; padding: 0 12px; }
+
+    .sidebar nav ul li { margin: 2px 0; }
+
+    .sidebar nav a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .sidebar nav a:hover,
+    .sidebar nav a.active {
+      background: rgba(0,166,175,0.18);
+      color: #fff;
+    }
+
+    .sidebar nav .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      padding: 16px 12px 6px;
+      display: block;
+    }
+
+    /* ── Main ── */
+    .main {
+      flex: 1;
+      padding: 48px 56px;
+      max-width: 900px;
+      height: 100vh;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+
+    .doc-section { scroll-margin-top: 32px; }
+
+    /* ── Page hero ── */
+    .page-hero {
+      background: linear-gradient(135deg, var(--dark) 0%, #0e3a42 100%);
+      border-radius: 16px;
+      padding: 48px;
+      margin-bottom: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(0,166,175,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .page-hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,166,175,0.2);
+      border: 1px solid rgba(0,166,175,0.3);
+      border-radius: 100px;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 16px;
+    }
+
+    .page-hero h1 {
+      font-size: 36px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .page-hero p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.65);
+      max-width: 520px;
+    }
+
+    /* ── Sections ── */
+    .doc-section {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 40px;
+      margin-bottom: 32px;
+      scroll-margin-top: 32px;
+    }
+
+    .doc-section__header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--teal-light);
+    }
+
+    .doc-section__icon {
+      width: 44px; height: 44px;
+      background: var(--teal-light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .doc-section__title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .doc-section__subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 28px 0 10px;
+    }
+
+    h3:first-child { margin-top: 0; }
+
+    p { margin-bottom: 14px; color: var(--text); font-size: 14.5px; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── Steps ── */
+    .steps { counter-reset: step; margin: 20px 0; }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .step__num {
+      counter-increment: step;
+      width: 30px; height: 30px;
+      background: var(--teal);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .step__num::before { content: counter(step); }
+
+    .step__body { flex: 1; }
+
+    .step__body strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+
+    .step__body p, .step__body span {
+      font-size: 13.5px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* ── Code ── */
+    code {
+      font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+      font-size: 12.5px;
+      background: var(--teal-light);
+      color: var(--teal-deep);
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: var(--dark);
+      color: #a8d8da;
+      border-radius: 8px;
+      padding: 20px 24px;
+      font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+      font-size: 12.5px;
+      line-height: 1.8;
+      overflow-x: auto;
+      margin: 16px 0;
+    }
+
+    pre .c { color: #4a8c8c; }
+    pre .k { color: var(--yellow); }
+    pre .s { color: #a8d8da; }
+    pre .v { color: #fca5a5; }
+
+    /* ── Info boxes ── */
+    .info-box {
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-size: 13.5px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .info-box__icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+    .info-box--tip { background: var(--teal-light); border-left: 3px solid var(--teal); }
+    .info-box--warn { background: #fffbeb; border-left: 3px solid var(--yellow); }
+    .info-box--info { background: #eff6ff; border-left: 3px solid #3b82f6; }
+
+    .info-box p { margin: 0; color: var(--dark); }
+
+    /* ── Field table ── */
+    .field-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 13.5px;
+    }
+
+    .field-table th {
+      background: var(--teal-light);
+      color: var(--teal-deep);
+      font-weight: 700;
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .field-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .field-table tr:last-child td { border-bottom: none; }
+    .field-table tr:hover td { background: var(--bg-soft); }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .badge--teal { background: var(--teal-light); color: var(--teal-deep); }
+    .badge--yellow { background: #fef9c3; color: #92400e; }
+    .badge--gray { background: #f1f5f9; color: #64748b; }
+
+    /* ── Screenshot placeholder ── */
+    .screenshot {
+      background: var(--teal-light);
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      text-align: center;
+      margin: 16px 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ── Path breadcrumb ── */
+    .path {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--teal-deep);
+      margin: 6px 0;
+    }
+
+    .path span { color: var(--muted); }
+
+    /* ── Grid 2col ── */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 16px 0;
+    }
+
+    .card-mini {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 18px;
+    }
+
+    .card-mini strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+
+    .card-mini p {
+      font-size: 12.5px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* ── SEO meter ── */
+    .seo-bar {
+      height: 6px;
+      border-radius: 3px;
+      margin: 6px 0 12px;
+    }
+
+    .seo-bar--red { background: #ef4444; width: 30%; }
+    .seo-bar--orange { background: var(--yellow); width: 60%; }
+    .seo-bar--green { background: #22c55e; width: 100%; }
+
+    /* ── TOC ── */
+    .toc {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+    }
+
+    .toc h2 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    .toc ol {
+      padding-left: 20px;
+      font-size: 13.5px;
+    }
+
+    .toc li { margin-bottom: 6px; }
+    .toc a { color: var(--teal-deep); text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+
+    ul.doc-list {
+      padding-left: 20px;
+      margin: 12px 0;
+    }
+
+    ul.doc-list li {
+      font-size: 14px;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .main { padding: 24px; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ═══════════════════════════════════════
+       SIDEBAR
+  ════════════════════════════════════════ -->
+  <aside class="sidebar">
+    <div class="sidebar__brand">
+      <div class="sidebar__logo">🏥</div>
+      <div class="sidebar__title">Manual do Tema</div>
+      <div class="sidebar__sub">Clínica Nodari v14</div>
+    </div>
+
+    <nav>
+      <ul>
+        <li><span class="section-label">Introdução</span></li>
+        <li><a href="#visao-geral">🗺️ Visão Geral</a></li>
+        <li><a href="#configuracoes">⚙️ Configurações da Clínica</a></li>
+
+        <li><span class="section-label">Página Inicial</span></li>
+        <li><a href="#hero">🏠 Hero</a></li>
+        <li><a href="#historia">📖 Nossa História</a></li>
+        <li><a href="#especialidades">🧠 Especialidades</a></li>
+        <li><a href="#psicologos-home">👥 Psicólogos</a></li>
+        <li><a href="#cta-banner">📣 Banner CTA</a></li>
+        <li><a href="#blog-home">📝 Blog (destaque)</a></li>
+
+        <li><span class="section-label">Psicólogos</span></li>
+        <li><a href="#cpt-psicologo">👤 Cadastrar Psicólogo</a></li>
+        <li><a href="#foto-psicologo">🖼️ Foto do Psicólogo</a></li>
+
+        <li><span class="section-label">Blog</span></li>
+        <li><a href="#criar-post">✍️ Criar Post</a></li>
+        <li><a href="#comentarios">💬 Comentários</a></li>
+
+        <li><span class="section-label">Yoast SEO</span></li>
+        <li><a href="#yoast-intro">🔍 Como funciona</a></li>
+        <li><a href="#yoast-post">📄 SEO em Posts</a></li>
+        <li><a href="#yoast-psicologo">👤 SEO em Psicólogos</a></li>
+        <li><a href="#yoast-global">🌐 SEO Global</a></li>
+
+        <li><span class="section-label">Código-fonte</span></li>
+        <li><a href="#estrutura-arquivos">📁 Estrutura de Arquivos</a></li>
+        <li><a href="#como-editar-css">🎨 Como editar CSS</a></li>
+        <li><a href="#variaveis-css">🎨 Variáveis de cores</a></li>
+        <li><a href="#js-comportamentos">⚡ Comportamentos JS</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- ═══════════════════════════════════════
+       MAIN CONTENT
+  ════════════════════════════════════════ -->
+  <main class="main">
+
+    <!-- Hero do manual -->
+    <div class="page-hero">
+      <div class="page-hero__badge">📘 Documentação Completa</div>
+      <h1>Manual do Tema<br>Clínica Nodari</h1>
+      <p>Guia detalhado para gerenciar todo o conteúdo do site — sem precisar mexer em código.</p>
+    </div>
+
+    <!-- TOC -->
+    <div class="toc">
+      <h2>Índice rápido</h2>
+      <ol>
+        <li><a href="#visao-geral">Visão Geral do Tema</a></li>
+        <li><a href="#configuracoes">Configurações Globais da Clínica</a></li>
+        <li><a href="#hero">Página Inicial — Seção Hero</a></li>
+        <li><a href="#historia">Página Inicial — Nossa História</a></li>
+        <li><a href="#especialidades">Página Inicial — Especialidades</a></li>
+        <li><a href="#cpt-psicologo">Cadastro de Psicólogos</a></li>
+        <li><a href="#foto-psicologo">Como adicionar foto dos psicólogos</a></li>
+        <li><a href="#criar-post">Criando posts no Blog</a></li>
+        <li><a href="#comentarios">Área de Comentários</a></li>
+        <li><a href="#yoast-intro">Yoast SEO — Guia completo</a></li>
+        <li><a href="#estrutura-arquivos">Estrutura de arquivos do tema</a></li>
+        <li><a href="#como-editar-css">Como editar estilos e cores</a></li>
+      </ol>
+    </div>
+
+    <!-- ════════════════════════════
+         VISÃO GERAL
+    ═════════════════════════════ -->
+    <section class="doc-section" id="visao-geral">
+      <div class="doc-section__header">
+        <div class="doc-section__icon">🗺️</div>
+        <div>
+          <div class="doc-section__title">Visão Geral do Tema</div>
+          <div class="doc-section__subtitle">Arquitetura e tecnologias utilizadas</div>
+        </div>
+      </div>
+
+      <p>O tema <strong>Clínica Nodari</strong> é um tema WordPress customizado, construído do zero. Ele não usa Elementor, Divi, nem nenhum page builder — todo o layout é controlado por arquivos PHP e CSS próprios, o que garante máxima performance.</p>
+
+      <div class="grid-2">
+        <div class="card-mini">
+          <strong>🔧 Tecnologias</strong>
+          <p>WordPress + ACF (Advanced Custom Fields) + Yoast SEO + PHP + CSS puro</p>
+        </div>
+        <div class="card-mini">
+          <strong>🎨 Identidade Visual</strong>
+          <p>Fonte Century Gothic (self-hosted), paleta Teal + Amarelo conforme manual TAI Branding 2025</p>
+        </div>
+        <div class="card-mini">
+          <strong>⚡ Performance</strong>
+          <p>JS com <code>defer</code>, imagens com <code>loading=lazy</code>, fontes pré-carregadas, sem dependência de CDN externo</p>
+        </div>
+        <div class="card-mini">
+          <strong>📱 Responsivo</strong>
+          <p>Breakpoint em 960px. Menu hamburguer automático no mobile, layout em coluna única</p>
+        </div>
+      </div>
+
+      <h3>Plugins obrigatórios</h3>
+      <table class="field-table">
+        <thead>
+          <tr><th>Plugin</th><th>Função</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Advanced Custom Fields (ACF)</strong></td>
+            <td>Gerencia todos os campos visuais da página inicial e dos psicólogos</td>
+            <td><span class="badge badge--teal">Obrigatório</span></td>
+          </tr>
+          <tr>
+            <td><strong>Yoast SEO</strong></td>
+            <td>Gerencia títulos, metas, sitemap e breadcrumbs</td>
+            <td><span class="badge badge--teal">Obrigatório</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ════════════════════════════
+         CONFIGURAÇÕES GLOBAIS
+    ═════════════════════════════ -->
+    <section class="doc-section" id="configuracoes">
+      <div class="doc-section__header">
+        <div class="doc-section__icon">⚙️</div>
+        <div>
+          <div class="doc-section__title">Configurações Globais da Clínica</div>
+          <div class="doc-section__subtitle">WhatsApp, telefone, e-mail, endereço, redes sociais</div>
+        </div>
+      </div>
+
+      <p>O tema tem um painel próprio de configurações acessível diretamente no menu lateral do WordPress.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step__num"></div>
+          <div class="step__body">
+            <strong>Acesse o painel de configurações</strong>
+            <span>No menu lateral do WordPress, clique em <strong>🏥 Clínica Nodari</strong></span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__num"></div>
+          <div class="step__body">
+            <strong>Preencha os campos</strong>
+            <span>Todos os dados abaixo aparecem automaticamente no header, footer e botão de WhatsApp</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__num"></div>
+          <div class="step__body">
+            <strong>Clique em Salvar Configurações</strong>
+            <span>A alteração reflete em todo o site imediatamente</span>
+          </div>
+        </div>
+      </div>
+
+      <table class="field-table">
+        <thead>
+          <tr><th>Campo</th><th>Exemplo</th><th>Onde aparece</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>WhatsApp (só números)</strong></td>
+            <td><code>5511997254565</code></td>
+            <td>Botão "Agendar Consulta" em todo o site</td>
+          </tr>
+          <tr>
+            <td><strong>Telefone fixo</strong></td>
+            <td><code>11 2367-0027</code></td>
+            <td>Topbar (barra superior)</td>
+          </tr>
+          <tr>
+            <td><strong>E-mail</strong></td>
+            <td><code>atendimento@...</code></td>
+            <td>Topbar e footer</td>
+          </tr>
+          <tr>
+            <td><strong>Endereço</strong></td>
+            <td><code>R. Domingos de Morais, 2781</code></td>
+            <td>Topbar e footer</td>
+          </tr>
+          <tr>
+            <td><strong>Horário de atendimento</strong></td>
+            <td><code>Seg a Sex: 09h–21h</code></td>
+            <td>Footer</td>
+          </tr>
+          <tr>
+            <td><strong>Facebook (URL completa)</strong></td>
+            <td><code>https://facebook.com/...</code></td>
+            <td>Ícone social na topbar e footer</td>
+          </tr>
+          <tr>
+            <td><strong>Instagram (URL completa)</strong></td>
+            <td><code>https://instagram.com/...</code></td>
+            <td>Ícone social na topbar e footer</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="info-box info-box--warn">
+        <div class="info-box__icon">⚠️</div>
+        <p>O WhatsApp deve conter <strong>apenas números</strong>, sem espaços, traços ou parênteses. O formato correto é o DDI + DDD + número: <code>5511997254565</code></p>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════
+         HERO
+    ═════════════════════════════ -->
+    <section class="doc-section" id="hero">
+      <div class="doc-section__header">
+        <div class="doc-section__icon">🏠</div>
+        <div>
+          <div class="doc-section__title">Página Inicial — Seção Hero</div>
+          <div class="doc-section__subtitle">A primeira seção que o visitante vê</div>
+        </div>
+      </div>
+
+      <div class="path">WP Admin <span>›</span> Páginas <span>›</span> Página Inicial <span>›</span> 🏠 Hero — Seção Principal</div>
+
+      <p>O Hero é a seção de topo da página inicial, com título, descrição, botões de ação e imagem lateral. Todos os textos e a imagem são editáveis pelo ACF.</p>
+
+      <table class="field-table">
+        <thead>
+          <tr><th>Campo ACF</th><th>Descrição</th><th>Dica</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Texto do badge</strong></td>
+            <td>Pílula colorida acima do título</td>
+            <td>Curto, ex: "Clínica de Psicologia"</td>
+          </tr>
+          <tr>
+            <td><strong>Título principal</strong></td>
+            <td>Título grande em destaque</td>
+            <td>Máx. 60 caracteres para não quebrar layout</td>
+          </tr>
+          <tr>
+            <td><strong>Palavra em destaque (itálico)</strong></td>
+            <td>Trecho do título que fica em itálico teal</td>
+            <td>Deve ser uma palavra ou expressão que <em>existe</em> no título principal</td>
+          </tr>
+          <tr>
+            <td><strong>Descrição</strong></td>
+            <td>Parágrafo abaixo do título</td>
+            <td>2–3 linhas, direto ao ponto</td>
+          </tr>
+          <tr>
+            <td><strong>Tag de modalidade</strong></td>
+            <td>Linha com ícone de check abaixo da descrição</td>
+            <td>Ex: "Atendimento Presencial e Online"</td>
+          </tr>
+          <tr>
+            <td><strong>Texto do botão principal</strong></td>
+            <td>Botão amarelo (abre WhatsApp)</td>
+            <td>Ex: "Agende sua Consulta"</td>
+          </tr>
+          <tr>
+            <td><strong>Texto do botão secundário</strong></td>
+            <td>Botão outline teal</td>
+            <td>Ex: "Ver Especialidades"</td>
+          </tr>
+          <tr>
+            <td><strong>Imagem do hero</strong></td>
+            <td>Foto lateral do hero</td>
+            <td>Recomendado: 900×600px, formato retrato/paisagem</td>
+          </tr>
+          <tr>
+            <td><strong>Número no card</strong></td>
+            <td>Número flutuante sobre a imagem</td>
+            <td>Ex: "+500"</td>
+          </tr>
+          <tr>
+            <td><strong>Rótulo do número</strong></td>
+            <td>Texto abaixo do número</td>
+            <td>Ex: "Pacientes atendidos"</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="info-box info-box--tip">
+        <div class="info-box__icon">💡</div>
+        <p>A <strong>palavra em destaque</strong> precisa aparecer exatamente igual no campo <em>Título principal</em>. Se o título for "Melhore sua qualidade de vida" e o destaque for "qualidade de vida", o trecho ficará em itálico teal automaticamente.</p>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════
+         NOSSA HISTÓRIA
+    ═════════════════════════════ -->
+    <section class="doc-section" id="historia">
+      <div class="doc-section__header">
+        <div class="doc-section__icon">📖</div>
+        <div>
+          <div class="doc-section__title">Página Inicial — Nossa História</div>
+          <div class="doc-section__subtitle">Seção com duas colunas de texto + imagem</div>
+        </div>
+      </div>
+
+      <div class="path">WP Admin <span>›</span> Páginas <span>›</span> Página Inicial <span>›</span> 📖 Nossa História</div>
+
+      <p>Seção dividida em dois blocos lado a lado (texto + imagem), com fundo teal. Cada bloco tem seu próprio título, texto e imagem.</p>
+
+      <h3>Bloco 1 — "Nossa História"</h3>
+      <table class="field-table">
+        <thead><tr><th>Campo</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Label seção 1</strong></td><td>Pequena etiqueta acima do título (ex: "Nossa História")</td></tr>
+          <tr><td><strong>Título seção 1</strong></td><td>Título do bloco</td></tr>
+          <tr><td><strong>Trecho em itálico</strong></td><td>Parte do título que fica em itálico</td></tr>
+          <tr><td><strong>Parágrafo 1 e 2</strong></td><td>Dois parágrafos de texto</td></tr>
+          <tr><td><strong>Imagem seção 1</strong></td><td>Foto à direita do texto. Recomendado: 800×600px</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Bloco 2 — "A Clínica"</h3>
+      <table class="field-table">
+        <thead><tr><th>Campo</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Label seção 2</strong></td><td>Ex: "A Clínica"</td></tr>
+          <tr><td><strong>Título seção 2</strong></td><td>Título do segundo bloco</td></tr>
+          <tr><td><strong>Texto seção 2</strong></td><td>Parágrafo descritivo</td></tr>
+          <tr><td><strong>Imagem seção 2</strong></td><td>Foto à esquerda do texto (layout espelhado)</td></tr>
+          <tr><td><strong>Lista de diferenciais</strong></td><td>Repeater — adicione quantos itens quiser. Cada item aparece com um ícone amarelo ✓</td></tr>
+        </tbody>
+      </table>
+
+      <div class="info-box info-box--tip">
+        <div class="info-box__icon">💡</div>
+        <p>O campo <strong>Lista de diferenciais</strong> é um <em>Repeater</em> do ACF. Clique em <strong>"Adicionar item"</strong> para inserir novas linhas. Cada linha = uma linha na lista com ícone.</p>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════
+         ESPECIALIDADES
+    ═════════════════════════════ -->
+    <section class="doc-section" id="especialidades">
+      <div class="doc-section__header">
+        <div class="doc-section__icon">🧠</div>
+        <div>
+          <div class="doc-section__title">Página Inicial — Especialidades</div>
+          <div class="doc-section__subtitle">Grid de cards de especialidades</div>
+        </div>
+      </div>
+
+      <div class="path">WP Admin <span>›</span> Páginas <span>›</span> Página Inicial <span>›</span> 🧠 Especialidades</div>
+
+      <p>Seção em fundo branco suave com grid de 3 cards. Cada card tem imagem, título e texto. A quantidade de cards é livre.</p>
+
+      <table class="field-table">
+        <thead><tr><th>Campo</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Label da seção</strong></td><td>Pequena etiqueta teal acima do título</td></tr>
+          <tr><td><strong>Título</strong></td><td>Título principal da seção</td></tr>
+          <tr><td><strong>Descrição</strong></td><td>Subtítulo da seção</td></tr>
+          <tr>
+            <td><strong>Cards de especialidades</strong></td>
+            <td>
+              Repeater com subcampos:<br>
+              • <strong>Título</strong> — nome da especialidade<br>
+              • <strong>Texto</strong> — descrição curta<br>
+              • <strong>Imagem</strong> — foto do card (recomendado 600×400px)
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="info-box info-box--warn">
+        <div class="info-box__icon">⚠️</div>
+        <p>O grid tem 3 colunas. Para manter o layout simétrico, adicione cards em múltiplos de 3 (3, 6, 9...). Números ímpares como 4 ou 5 podem deixar o grid desalinhado.</p>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════
+         PSICÓLOGOS HOME
+    ═════════════════════════════ -->
+    <section class="doc-section" id="psicologos-home">
+      <div class="doc-section__header">
+        <div class="doc-section__icon">👥</div>
+        <div>
+          <div class="doc-section__title">Página Inicial — Seção Psicólogos</div>
+          <div class="doc-section__subtitle">Cards automáticos dos psicólogos cadastrados</div>
+        </div>
+      </div>
+
+      <p>Esta seção é <strong>automática</strong> — ela busca todos os posts do tipo "Psicólogo" cadastrados no painel e exibe como cards. Não há campos ACF para esta seção na página inicial. Para alterar o conteúdo, edite os psicólogos individualmente.</p>
+
+      <div class="info-box info-box--info">
+        <div class="info-box__icon">ℹ️</div>
+        <p>Os cards são ordenados pelo campo <strong>"Ordem de exibição"</strong> dos dados profissionais. Número menor = aparece primeiro. Para colocar a Luana primeiro, use <code>0</code> ou <code>1</code>.</p>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════
+         CTA BANNER
+    ═════════════════════════════ -->
+    <section class="doc-section" id="cta-banner">
+      <div class="doc-section__header">
+        <div class="doc-section__icon">📣</div>
+        <div>
+          <div class="doc-section__title">Página Inicial — Banner CTA</div>
+          <div class="doc-section__subtitle">Faixa escura com chamada para ação</div>
+        </div>
+      </div>
+
+      <div class="path">WP Admin <span>›</span> Páginas <span>›</span> Página Inicial <span>›</span> 📣 Banner CTA</div>
+
+      <table class="field-table">
+        <thead><tr><th>Campo</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Título do banner</strong></td><td>Texto grande em branco</td></tr>
+          <tr><td><strong>Trecho em itálico</strong></td><td>Parte do título que fica em itálico amarelo</td></tr>
+          <tr><td><strong>Texto do botão</strong></td><td>Botão amarelo que abre o WhatsApp</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ════════════════════════════
+         BLOG HOME
+    ═════════════════════════════ -->
+    <section class="doc-section" id="blog-home">
+      <div class="doc-section__header">
+        <div class="doc-section__icon">📝</div>
+        <div>
+          <div class="doc-section__title">Página Inicial — Seção Blog</div>
+          <div class="doc-section__subtitle">Últimos 3 posts automáticos</div>
+        </div>
+      </div>
+
+      <p>Exibe automaticamente os <strong>3 posts mais recentes</strong> do blog. Não precisa configurar nada — ao publicar posts, eles aparecem aqui. O título e subtítulo da seção são fixos no código. Para alterá-los edite o arquivo <code>front-page.php</code>.</p>
+    </section>
+
+    <!-- ════════════════════════════
+         CPT PSICÓLOGO
+    ═════════════════════════════ -->
+    <section class="doc-section" id="cpt-psicologo">
+      <div class="doc-section__header">
+        <div class="doc-section__icon">👤</div>
+        <div>
+          <div class="doc-section__title">Cadastro de Psicólogos</div>
+          <div class="doc-section__subtitle">Como criar e editar o perfil de cada profissional</div>
+        </div>
+      </div>
+
+      <div class="path">WP Admin <span>›</span> Psicólogos <span>›</span> Adicionar Psicólogo</div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step__num"></div>
+          <div class="step__body">
+            <strong>Título do post = Nome da psicóloga</strong>
+            <span>Ex: "Luana Nodari". Esse nome aparece no card e na página de perfil.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__num"></div>
+          <div class="step__body">
+            <strong>Conteúdo do editor = Biografia</strong>
+            <span>Escreva a biografia da profissional no editor principal. Este texto aparece na página de perfil individual.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__num"></div>
+          <div class="step__body">
+            <strong>Preencha os Dados Profissionais</strong>
+            <span>Na metabox "Dados Profissionais" abaixo do editor, preencha CRP, especialidade, formação, modalidade de atendimento e ordem.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__num"></div>
+          <div class="step__body">
+            <strong>Adicione a foto (via ACF)</strong>
+            <span>Na sidebar direita, no box "👤 Foto do Psicólogo", faça upload da foto.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__num"></div>
+          <div class="step__body">
+            <strong>Configure o Yoast SEO</strong>
+            <span>Role a página até o bloco do Yoast e preencha frase-chave, título SEO, slug e metadescrição.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__num"></div>
+          <div class="step__body">
+            <strong>Publique</strong>
+            <span>Clique em "Publicar". O card aparece automaticamente na página inicial e na listagem de psicólogos.</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Campos de Dados Profissionais</h3>
+      <table class="field-table">
+        <thead><tr><th>Campo</th><th>Exemplo</th><th>Onde aparece</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>CRP</strong></td>
+            <td><code>06/112356</code></td>
+            <td>Card e página de perfil</td>
+          </tr>
+          <tr>
+            <td><strong>Especialidade</strong></td>
+            <td><code>Terapia Cognitivo-Comportamental</code></td>
+            <td>Card (em teal) e página de perfil</td>
+          </tr>
+          <tr>
+            <td><strong>Formação</strong></td>
+            <td><code>Especialista em Neuropsicologia — USP</code></td>
+            <td>Card e página de perfil</td>
+          </tr>
+          <tr>
+            <td><strong>Atende</strong></td>
+            <td>Presencial / Online / Presencial e Online</td>
+            <td>Badge colorido no card</td>
+          </tr>
+          <tr>
+            <td><strong>Ordem de exibição</strong></td>
+            <td><code>0</code> (aparece primeiro)</td>
+            <td>Controla a posição no grid</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ════════════════════════════
+         FOTO DO PSICÓLOGO
+    ═════════════════════════════ -->
+    <section class="doc-section" id="foto-psicologo">
+      <div class="doc-section__header">
+        <div class="doc-section__icon">🖼️</div>
+        <div>
+          <div class="doc-section__title">Foto do Psicólogo — Guia Completo</div>
+          <div class="doc-section__subtitle">Como adicionar e substituir a foto de cada profissional</div>
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step__num"></div>
+          <div class="step__body">
+            <strong>Abra o post do psicólogo</strong>
+            <span>WP Admin → Psicólogos → clique no nome da profissional para editar</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__num"></div>
+          <div class="step__body">
+            <strong>Localize o box "Psicólogo" na sidebar direita</strong>
+            <span>Role a página para baixo. Na coluna da direita (ao lado do editor), procure o box chamado <strong>"Psicólogo"</strong> ou <strong>"👤 Foto do Psicólogo"</strong>.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__num"></div>
+          <div class="step__body">
+            <strong>Clique em "Adicionar imagem"</strong>
+            <span>Abrirá a biblioteca de mídia do WordPress. Selecione ou faça upload da foto.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__num"></div>
+          <div class="step__body">
+            <strong>Confirme a seleção</strong>
+            <span>A miniatura da foto aparece no box. Clique em "Atualizar" para salvar.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-box info-box--tip">
+        <div class="info-box__icon">📐</div>
+        <p><strong>Especificações ideais da foto:</strong> 400×500 pixels (orientação retrato), fundo neutro ou desfocado, rosto centralizado, formato JPG ou WebP. Tamanho máximo: 1MB.</p>
+      </div>
+
+      <h3>Como o tema prioriza a foto</h3>
+      <p>O tema segue esta ordem de prioridade ao exibir a foto:</p>
+      <ol class="doc-list" style="padding-left:20px">
+        <li><strong>1º</strong> — Campo ACF "Foto" (box Psicólogo na sidebar) ← <strong>recomendado</strong></li>
+        <li><strong>2º</strong> — Imagem Destacada do post (caso o campo ACF esteja vazio)</li>
+        <li><strong>3º</strong> — Nenhuma foto é exibida (o card não quebra, apenas omite a imagem)</li>
+      </ol>
+
+      <div class="info-box info-box--warn">
+        <div class="info-box__icon">⚠️</div>
+        <p>Se o box do ACF não aparecer na sidebar, vá em <strong>Tela → Opções de Tela</strong> (canto superior direito) e verifique se "Psicólogo" está marcado para exibição.</p>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════
+         CRIAR POST
+    ═════════════════════════════ -->
+    <section class="doc-section" id="criar-post">
+      <div class="doc-section__header">
+        <div class="doc-section__icon">✍️</div>
+        <div>
+          <div class="doc-section__title">Criando Posts no Blog</div>
+          <div class="doc-section__subtitle">Como publicar artigos e conteúdos</div>
+        </div>
+      </div>
+
+      <div class="path">WP Admin <span>›</span> Posts <span>›</span> Adicionar novo</div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step__num"></div>
+          <div class="step__body">
+            <strong>Título do post</strong>
+            <span>Nome do artigo. Aparece como H1 na página e no card do blog.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__num"></div>
+          <div class="step__body">
+            <strong>Conteúdo</strong>
+            <span>Escreva o artigo no editor. Use H2 para subtítulos, parágrafos, listas. O tema formata automaticamente com a fonte e cores certas.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__num"></div>
+          <div class="step__body">
+            <strong>Imagem Destacada</strong>
+            <span>Na sidebar direita, adicione uma imagem destacada. Ela aparece no card do blog e no topo do post. Recomendado: 1200×700px.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__num"></div>
+          <div class="step__body">
+            <strong>Categoria</strong>
+            <span>Selecione ou crie uma categoria. A categoria aparece como badge colorido no card do blog.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__num"></div>
+          <div class="step__body">
+            <strong>Tags</strong>
+            <span>Adicione tags relevantes. Aparecem ao final do post como pílulas clicáveis.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__num"></div>
+          <div class="step__body">
+            <strong>Yoast SEO</strong>
+            <span>Role até o bloco do Yoast e configure frase-chave, slug, título SEO e metadescrição.</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__num"></div>
+          <div class="step__body">
+            <strong>Publique</strong>
+            <span>Clique em "Publicar". O post aparece automaticamente no blog e nos 3 destaques da home.</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>O que é gerado automaticamente</h3>
+      <table class="field-table">
+        <thead><tr><th>Elemento</th><th>Gerado automaticamente</th></tr></thead>
+        <tbody>
+          <tr><td>Breadcrumb</td><td>Home → Blog → Nome do post</td></tr>
+          <tr><td>Meta date</td><td>Data de publicação formatada</td></tr>
+          <tr><td>Autor</td><td>Fixo: "Equipe Clínica Nodari" (por privacidade)</td></tr>
+          <tr><td>Tags</td><td>Listadas ao final com estilo pílula teal</td></tr>
+          <tr><td>Posts relacionados</td><td>3 posts da mesma categoria (aleatório)</td></tr>
+          <tr><td>CTA final</td><td>"Precisa de ajuda profissional?" com botão WhatsApp</td></tr>
+          <tr><td>Navegação</td><td>← Post anterior / Próximo post →</td></tr>
+          <tr><td>Schema Article</td><td>Markup JSON-LD para Google</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ════════════════════════════
+         COMENTÁRIOS
+    ═════════════════════════════ -->
+    <section class="doc-section" id="comentarios">
+      <div class="doc-section__header">
+        <div class="doc-section__icon">💬</div>
+        <div>
+          <div class="doc-section__title">Área de Comentários</div>
+          <div class="doc-section__subtitle">Como funciona, moderar e configurar</div>
+        </div>
+      </div>
+
+      <p>Os comentários aparecem automaticamente ao final de cada post do blog, desde que estejam habilitados nas configurações do WordPress.</p>
+
+      <h3>Layout do formulário</h3>
+      <p>O formulário tem:</p>
+      <ul class="doc-list">
+        <li><strong>Nome</strong> e <strong>E-mail</strong> lado a lado (obrigatórios)</li>
+        <li><strong>Textarea de comentário</strong> em largura total</li>
+        <li><strong>Botão "Comentar"</strong> em teal arredondado</li>
+        <li>Campo "Site" e "Salvar dados" ocultados por design</li>
+      </ul>
+
+      <h3>Moderar comentários</h3>
+      <div class="path">WP Admin <span>›</span> Comentários</div>
+
+      <p>Por padrão o WordPress requer aprovação manual. Para aprovar: passe o mouse sobre o comentário → clique em <strong>"Aprovar"</strong>. Comentários aprovados aparecem no post.</p>
+
+      <h3>Configurações recomendadas</h3>
+      <div class="path">WP Admin <span>›</span> Configurações <span>›</span> Discussão</div>
+
+      <table class="field-table">
+        <thead><tr><th>Configuração</th><th>Valor recomendado</th></tr></thead>
+        <tbody>
+          <tr><td>Comentários precisam ser aprovados manualmente</td><td><span class="badge badge--teal">Ativado</span></td></tr>
+          <tr><td>Avisar por e-mail quando houver novo comentário</td><td><span class="badge badge--teal">Ativado</span></td></tr>
+          <tr><td>Comentários aninhados</td><td>Até 3 níveis</td></tr>
+          <tr><td>Comentários paginados</td><td>50 por página</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Habilitar/desabilitar por post</h3>
+      <p>Em cada post individual, na sidebar direita, há o box <strong>"Discussão"</strong>. Desmarque "Permitir comentários" para desativar apenas naquele post.</p>
+    </section>
+
+    <!-- ════════════════════════════
+         YOAST INTRO
+    ═════════════════════════════ -->
+    <section class="doc-section" id="yoast-intro">
+      <div class="doc-section__header">
+        <div class="doc-section__icon">🔍</div>
+        <div>
+          <div class="doc-section__title">Yoast SEO — Como funciona</div>
+          <div class="doc-section__subtitle">Entendendo os indicadores e o que cada campo faz</div>
+        </div>
+      </div>
+
+      <p>O Yoast SEO analisa cada página/post e indica se está bem otimizado. Ele aparece como um bloco abaixo do editor em todas as páginas, posts e psicólogos.</p>
+
+      <h3>Os indicadores de cor</h3>
+      <table class="field-table">
+        <thead><tr><th>Cor</th><th>Significado</th><th>O que fazer</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>
+              <span class="badge" style="background:#fee2e2;color:#dc2626">🔴 Vermelho</span>
+            </td>
+            <td>Problema crítico — não indexável ou sem conteúdo</td>
+            <td>Preencher os campos em falta</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="badge badge--yellow">🟠 Laranja</span>
+            </td>
+            <td>Pode melhorar — curto demais, longo demais ou keyphrase ausente</td>
+            <td>Ajustar conforme as dicas abaixo</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="badge" style="background:#dcfce7;color:#16a34a">🟢 Verde</span>
+            </td>
+            <td>Bem otimizado</td>
+            <td>Nada a fazer</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>As abas do Yoast</h3>
+      <table class="field-table">
+        <thead><tr><th>Aba</th><th>O que controla</th></tr></thead>
+        <tbody>
+          <tr><td><strong>SEO</strong></td><td>Frase-chave, título SEO, slug, metadescrição</td></tr>
+          <tr><td><strong>Legibilidade</strong></td><td>Análise do texto: frases longas, voz passiva, uso de subtítulos</td></tr>
+          <tr><td><strong>Dados estruturados</strong></td><td>Schema markup automático</td></tr>
+          <tr><td><strong>Social</strong></td><td>Título e imagem específicos para Facebook/Twitter</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ════════════════════════════
+         YOAST POST
+    ═════════════════════════════ -->
+    <section class="doc-section" id="yoast-post">
+      <div class="doc-section__header">
+        <div class="doc-section__icon">📄</div>
+        <div>
+          <div class="doc-section__title">SEO em Posts do Blog</div>
+          <div class="doc-section__subtitle">Configuração ideal para cada artigo</div>
+        </div>
+      </div>
+
+      <h3>1. Frase-chave de foco</h3>
+      <p>É a palavra ou expressão que o Google deve associar ao post. Use algo que o leitor digitaria para encontrar o artigo.</p>
+      <ul class="doc-list">
+        <li>✅ <code>como funciona a terapia TCC</code></li>
+        <li>✅ <code>ansiedade tratamento psicológico</code></li>
+        <li>❌ <code>Clínica Nodari blog post</code> (muito genérico)</li>
+      </ul>
+      <p>A frase-chave <strong>precisa aparecer literalmente</strong> no corpo do texto para o Yoast ficar verde.</p>
+
+      <h3>2. Título SEO</h3>
+      <p>É o título que aparece nos resultados do Google (diferente do título do post). Use as variáveis clicando em <strong>"Inserir variável"</strong>:</p>
+      <pre><span class="s">%%title%%</span> <span class="k">|</span> <span class="s">%%sitename%%</span></pre>
+      <p>Limite: entre <strong>50–60 caracteres</strong>. A barra fica verde quando está nessa faixa.</p>
+      <div class="seo-bar seo-bar--orange"></div>
+      <p style="font-size:12px;color:var(--muted)">Barra laranja = muito curto ou muito longo</p>
+      <div class="seo-bar seo-bar--green"></div>
+      <p style="font-size:12px;color:var(--muted)">Barra verde = tamanho ideal</p>
+
+      <h3>3. Slug</h3>
+      <p>A URL do post. Regras obrigatórias:</p>
+      <ul class="doc-list">
+        <li>Somente letras minúsculas</li>
+        <li>Sem acentos (ã → a, ç → c, ê → e)</li>
+        <li>Hífens no lugar de espaços</li>
+        <li>Inclua a frase-chave principal</li>
+      </ul>
+      <pre><span class="c">❌ Ruim:</span>  <span class="v">Terapia Cognitivo-Comportamental o que é</span>
+<span class="c">✅ Bom:</span>   <span class="s">o-que-e-terapia-cognitivo-comportamental</span></pre>
+
+      <h3>4. Metadescrição</h3>
+      <p>Texto que aparece abaixo do título nos resultados do Google. Limite: <strong>120–155 caracteres</strong>.</p>
+      <ul class="doc-list">
+        <li>Inclua a frase-chave de foco</li>
+        <li>Termine com ponto ou exclamação</li>
+        <li>Seja direta e convide ao clique</li>
+      </ul>
+      <pre><span class="s">Entenda como funciona a Terapia Cognitivo-Comportamental (TCC)
+e como ela pode ajudar a tratar ansiedade e depressão.
+Agende sua consulta na Clínica Nodari!</span></pre>
+    </section>
+
+    <!-- ════════════════════════════
+         YOAST PSICÓLOGO
+    ═════════════════════════════ -->
+    <section class="doc-section" id="yoast-psicologo">
+      <div class="doc-section__header">
+        <div class="doc-section__icon">👤</div>
+        <div>
+          <div class="doc-section__title">SEO em Psicólogos</div>
+          <div class="doc-section__subtitle">Configuração ideal para cada perfil de profissional</div>
+        </div>
+      </div>
+
+      <h3>Frase-chave de foco recomendada</h3>
+      <p>Use uma frase curta com especialidade + localização:</p>
+      <pre><span class="s">psicóloga TCC Vila Mariana</span>
+<span class="s">psicóloga neuropsicologia São Paulo</span>
+<span class="s">psicólogo ansiedade Vila Mariana</span></pre>
+
+      <div class="info-box info-box--warn">
+        <div class="info-box__icon">⚠️</div>
+        <p>A frase-chave <strong>deve aparecer literalmente</strong> em algum lugar do texto da biografia. Adicione uma frase como: <em>"Luana Nodari é psicóloga TCC Vila Mariana, especializada em…"</em></p>
+      </div>
+
+      <h3>Slug ideal</h3>
+      <pre><span class="s">luana-nodari-psicologa</span>
+<span class="s">nome-da-profissional-psicologa</span></pre>
+
+      <h3>Título SEO ideal</h3>
+      <pre><span class="s">Luana Nodari — Psicóloga TCC | Clínica Nodari Vila Mariana</span></pre>
+
+      <h3>Metadescrição ideal (120–155 caracteres)</h3>
+      <pre><span class="s">Luana Nodari, psicóloga TCC Vila Mariana, especializada em
+Terapia Cognitivo-Comportamental. Atendimento presencial
+e online. Agende sua consulta!</span></pre>
+
+      <h3>Checklist de SEO para psicólogos</h3>
+      <table class="field-table">
+        <thead><tr><th>Item</th><th>Status ideal</th></tr></thead>
+        <tbody>
+          <tr><td>Frase-chave no slug</td><td><span class="badge badge--teal">✅ Obrigatório</span></td></tr>
+          <tr><td>Frase-chave na metadescrição</td><td><span class="badge badge--teal">✅ Obrigatório</span></td></tr>
+          <tr><td>Frase-chave no corpo do texto (biografia)</td><td><span class="badge badge--teal">✅ Obrigatório</span></td></tr>
+          <tr><td>Metadescrição com 120–155 caracteres</td><td><span class="badge badge--teal">✅ Obrigatório</span></td></tr>
+          <tr><td>Foto com alt text descritivo</td><td><span class="badge badge--yellow">⚡ Recomendado</span></td></tr>
+          <tr><td>Foto cadastrada pelo campo ACF</td><td><span class="badge badge--yellow">⚡ Recomendado</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ════════════════════════════
+         YOAST GLOBAL
+    ═════════════════════════════ -->
+    <section class="doc-section" id="yoast-global">
+      <div class="doc-section__header">
+        <div class="doc-section__icon">🌐</div>
+        <div>
+          <div class="doc-section__title">SEO Global — Configurações do Yoast</div>
+          <div class="doc-section__subtitle">Configurações que afetam todo o site</div>
+        </div>
+      </div>
+
+      <div class="path">WP Admin <span>›</span> Yoast SEO <span>›</span> Configurações</div>
+
+      <h3>Padrão de títulos por tipo de conteúdo</h3>
+      <p>Em <strong>Yoast → Configurações → Tipos de Post</strong>, configure um template padrão para cada tipo:</p>
+      <table class="field-table">
+        <thead><tr><th>Tipo</th><th>Template de título recomendado</th></tr></thead>
+        <tbody>
+          <tr><td>Posts (Blog)</td><td><code>%%title%% | %%sitename%%</code></td></tr>
+          <tr><td>Psicólogos</td><td><code>%%title%% — Psicóloga %%sep%% %%sitename%%</code></td></tr>
+          <tr><td>Páginas</td><td><code>%%title%% | %%sitename%%</code></td></tr>
+        </tbody>
+      </table>
+
+      <h3>Sitemap</h3>
+      <p>O Yoast gera automaticamente um sitemap em:</p>
+      <pre><span class="s">psicologianodari.com.br/sitemap_index.xml</span></pre>
+      <p>Submeta este URL no Google Search Console para agilizar a indexação.</p>
+
+      <h3>Breadcrumbs</h3>
+      <p>Os breadcrumbs do Yoast já estão integrados ao tema nos posts e psicólogos. Para ativar:</p>
+      <div class="path">Yoast SEO <span>›</span> Configurações <span>›</span> Avançado <span>›</span> Breadcrumbs <span>›</span> Ativar</div>
+
+      <h3>O tema já configura automaticamente</h3>
+      <ul class="doc-list">
+        <li>Schema <strong>MedicalBusiness</strong> na home (nome, endereço, telefone, horário)</li>
+        <li>Schema <strong>Article</strong> em cada post do blog</li>
+        <li>Meta <strong>robots</strong> com <code>max-image-preview:large</code> para imagens grandes no Google</li>
+        <li>Tags <strong>Open Graph</strong> para Facebook e Twitter em todas as páginas</li>
+        <li><strong>URL canônica</strong> em todas as páginas</li>
+      </ul>
+    </section>
+
+    <!-- ════════════════════════════
+         ESTRUTURA DE ARQUIVOS
+    ═════════════════════════════ -->
+    <section class="doc-section" id="estrutura-arquivos">
+      <div class="doc-section__header">
+        <div class="doc-section__icon">📁</div>
+        <div>
+          <div class="doc-section__title">Estrutura de Arquivos do Tema</div>
+          <div class="doc-section__subtitle">O que cada arquivo controla</div>
+        </div>
+      </div>
+
+      <pre><span class="c">clinica-nodari-acf/</span>
+├── <span class="k">style.css</span>          <span class="c">← identifica o tema no WP</span>
+├── <span class="k">functions.php</span>      <span class="c">← lógica, hooks, enqueue, SEO, CPT</span>
+├── <span class="k">acf-fields.php</span>     <span class="c">← campos ACF registrados em código</span>
+│
+├── <span class="k">header.php</span>         <span class="c">← topbar + navegação</span>
+├── <span class="k">footer.php</span>         <span class="c">← rodapé + botão WhatsApp</span>
+├── <span class="k">comments.php</span>       <span class="c">← área de comentários dos posts</span>
+│
+├── <span class="k">front-page.php</span>     <span class="c">← página inicial (home)</span>
+├── <span class="k">home.php</span>           <span class="c">← listagem do blog</span>
+├── <span class="k">archive.php</span>        <span class="c">← arquivo de posts paginados</span>
+├── <span class="k">single.php</span>         <span class="c">← post individual do blog</span>
+├── <span class="k">page.php</span>           <span class="c">← páginas estáticas (ex: Privacidade)</span>
+│
+├── <span class="k">archive-psicologo.php</span>  <span class="c">← listagem de psicólogos</span>
+├── <span class="k">single-psicologo.php</span>   <span class="c">← perfil individual do psicólogo</span>
+│
+└── assets/
+    ├── css/
+    │   └── <span class="k">main.css</span>   <span class="c">← TODO o estilo do site</span>
+    ├── js/
+    │   └── <span class="k">main.js</span>    <span class="c">← menu mobile, scroll, animações</span>
+    └── fonts/
+        └── <span class="c">Century Gothic (6 variações)</span></pre>
+    </section>
+
+    <!-- ════════════════════════════
+         COMO EDITAR CSS
+    ═════════════════════════════ -->
+    <section class="doc-section" id="como-editar-css">
+      <div class="doc-section__header">
+        <div class="doc-section__icon">🎨</div>
+        <div>
+          <div class="doc-section__title">Como Editar Seções e Estilos</div>
+          <div class="doc-section__subtitle">Onde encontrar cada estilo no main.css</div>
+        </div>
+      </div>
+
+      <p>O arquivo <code>assets/css/main.css</code> está organizado em seções numeradas. Use Ctrl+F para encontrar a seção desejada:</p>
+
+      <table class="field-table">
+        <thead><tr><th>Buscar por</th><th>O que controla</th></tr></thead>
+        <tbody>
+          <tr><td><code>1. RESET & VARIÁVEIS</code></td><td>Cores, fontes, espaçamentos globais</td></tr>
+          <tr><td><code>4. TOPBAR</code></td><td>Barra superior com contatos</td></tr>
+          <tr><td><code>5. NAVEGAÇÃO</code></td><td>Menu, logo, hamburguer mobile</td></tr>
+          <tr><td><code>6. HERO</code></td><td>Seção de destaque da home</td></tr>
+          <tr><td><code>7. NOSSA HISTÓRIA</code></td><td>Seção teal com blocos de texto</td></tr>
+          <tr><td><code>8. ESPECIALIDADES</code></td><td>Grid de cards de especialidades</td></tr>
+          <tr><td><code>9. PSICÓLOGOS</code></td><td>Cards e perfil dos psicólogos</td></tr>
+          <tr><td><code>10. CTA BANNER</code></td><td>Faixa escura com botão</td></tr>
+          <tr><td><code>11. BLOG</code></td><td>Cards do blog na home</td></tr>
+          <tr><td><code>12. POST SINGLE</code></td><td>Layout do post individual</td></tr>
+          <tr><td><code>12d. COMENTÁRIOS</code></td><td>Formulário e lista de comentários</td></tr>
+          <tr><td><code>13. FOOTER</code></td><td>Rodapé completo</td></tr>
+          <tr><td><code>16. RESPONSIVO</code></td><td>Todos os ajustes mobile</td></tr>
+        </tbody>
+      </table>
+
+      <div class="info-box info-box--warn">
+        <div class="info-box__icon">⚠️</div>
+        <p>Após editar o <code>main.css</code>, incremente a versão no <code>functions.php</code> na linha <code>wp_enqueue_style('clinica-main', ..., '5.0.0')</code> para forçar o browser a carregar o arquivo novo em vez do cache.</p>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════
+         VARIÁVEIS CSS
+    ═════════════════════════════ -->
+    <section class="doc-section" id="variaveis-css">
+      <div class="doc-section__header">
+        <div class="doc-section__icon">🎨</div>
+        <div>
+          <div class="doc-section__title">Variáveis de Cores e Espaçamento</div>
+          <div class="doc-section__subtitle">Como mudar a identidade visual sem quebrar o tema</div>
+        </div>
+      </div>
+
+      <p>Todas as cores do tema são definidas em variáveis CSS no topo do <code>main.css</code>. Para mudar uma cor em todo o site basta alterar o valor da variável:</p>
+
+      <pre><span class="c">/* Paleta principal — Manual TAI Branding 2025 */</span>
+:root {
+  <span class="k">--color-teal:</span>        <span class="s">#00a6af</span>;  <span class="c">← cor principal</span>
+  <span class="k">--color-teal-deep:</span>   <span class="s">#0e6e73</span>;  <span class="c">← hover e destaque</span>
+  <span class="k">--color-teal-light:</span>  <span class="s">#4dc8cf</span>;  <span class="c">← versão clara</span>
+  <span class="k">--color-teal-bg:</span>     <span class="s">#e3f5f6</span>;  <span class="c">← fundos suaves</span>
+  <span class="k">--color-yellow:</span>      <span class="s">#fcc81f</span>;  <span class="c">← botões e destaques</span>
+  <span class="k">--color-dark:</span>        <span class="s">#1a2b3c</span>;  <span class="c">← textos escuros</span>
+  <span class="k">--color-text:</span>        <span class="s">#2D3748</span>;  <span class="c">← corpo de texto</span>
+  <span class="k">--color-text-muted:</span>  <span class="s">#718096</span>;  <span class="c">← texto secundário</span>
+}</pre>
+
+      <div class="info-box info-box--tip">
+        <div class="info-box__icon">💡</div>
+        <p>Para mudar a cor principal do site de teal para outra cor, basta alterar <code>--color-teal</code>. Todos os botões, links e destaques mudam automaticamente.</p>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════
+         JS COMPORTAMENTOS
+    ═════════════════════════════ -->
+    <section class="doc-section" id="js-comportamentos">
+      <div class="doc-section__header">
+        <div class="doc-section__icon">⚡</div>
+        <div>
+          <div class="doc-section__title">Comportamentos JavaScript</div>
+          <div class="doc-section__subtitle">Animações e interações automáticas do site</div>
+        </div>
+      </div>
+
+      <p>O arquivo <code>assets/js/main.js</code> controla três comportamentos automáticos:</p>
+
+      <table class="field-table">
+        <thead><tr><th>Comportamento</th><th>Como funciona</th><th>Como usar</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Menu hamburguer</strong></td>
+            <td>No mobile, o botão ☰ abre/fecha o menu. Fecha automaticamente ao clicar em qualquer link ou fora do menu.</td>
+            <td>Automático</td>
+          </tr>
+          <tr>
+            <td><strong>Nav sticky com sombra</strong></td>
+            <td>Quando o usuário desce a página mais de 40px, a navegação ganha uma sombra sutil.</td>
+            <td>Automático</td>
+          </tr>
+          <tr>
+            <td><strong>Animação reveal</strong></td>
+            <td>Elementos com a classe <code>.reveal</code> entram animados (fade + subida) quando aparecem na tela durante o scroll.</td>
+            <td>Adicione a classe <code>reveal</code> a qualquer elemento HTML para que ele anime ao aparecer. Use <code>reveal--delay-1</code>, <code>reveal--delay-2</code>, etc. para atrasar a entrada.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Como adicionar animação reveal em novos elementos</h3>
+      <p>No PHP/HTML, adicione a classe ao elemento:</p>
+      <pre><span class="c">&lt;!-- Anima imediatamente ao entrar na tela --&gt;</span>
+&lt;div <span class="k">class</span>="<span class="s">meu-elemento reveal</span>"&gt;...&lt;/div&gt;
+
+<span class="c">&lt;!-- Com atraso de 200ms (entra depois) --&gt;</span>
+&lt;div <span class="k">class</span>="<span class="s">meu-elemento reveal reveal--delay-2</span>"&gt;...&lt;/div&gt;</pre>
+    </section>
+
+  </main>
+</div>
+
+<footer style="background:var(--dark);color:rgba(255,255,255,0.5);text-align:center;padding:32px 24px;font-size:13px;margin-top:0;">
+  <div style="margin-bottom:6px;color:rgba(255,255,255,0.85);font-weight:600;font-size:14px;">
+    Desenvolvido por <span style="color:var(--teal)">Kairos Solutions IT</span>
+  </div>
+  <div>Qualquer dúvida, entre em contato com a equipe de desenvolvimento.</div>
+</footer>
+
+<script>
+  const mainEl  = document.querySelector('.main');
+  const links   = document.querySelectorAll('.sidebar nav a[href^="#"]');
+  const sections = document.querySelectorAll('.doc-section');
+
+  links.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (!target) return;
+      mainEl.scrollTo({ top: target.offsetTop - 32, behavior: 'smooth' });
+      links.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+
+  mainEl.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (mainEl.scrollTop >= s.offsetTop - 80) current = s.id;
+    });
+    links.forEach(l => {
+      l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+    });
+  }, { passive: true });
+</script>
+
+</body>
+</html>
