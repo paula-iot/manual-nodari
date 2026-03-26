@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Manual do Tema — Clínica Nodari</title>
+  <title>Manual de Uso e Auditoria SEO - Clínica Nodari</title>
   <style>
     :root {
       --teal:        #00a6af;
@@ -475,8 +475,8 @@
   <aside class="sidebar">
     <div class="sidebar__brand">
       <div class="sidebar__logo">🏥</div>
-      <div class="sidebar__title">Manual do Tema</div>
-      <div class="sidebar__sub">Clínica Nodari v14</div>
+      <div class="sidebar__title">Manual de Uso</div>
+      <div class="sidebar__sub">Clínica Nodari 2026</div>
     </div>
 
     <nav>
@@ -509,8 +509,9 @@
 
         <li><span class="section-label">Código-fonte</span></li>
         <li><a href="#estrutura-arquivos">📁 Estrutura de Arquivos</a></li>
-        <li><a href="#como-editar-css">🎨 Como editar CSS</a></li>
-        <li><a href="#variaveis-css">🎨 Variáveis de cores</a></li>
+        <li><a href="#google-site-kit">📊 Google Site Kit</a></li>
+        <li><a href="#como-editar-css">🎨 Como Editar CSS</a></li>
+        <li><a href="#variaveis-css">🎨 Variáveis de Cores</a></li>
         <li><a href="#js-comportamentos">⚡ Comportamentos JS</a></li>
       </ul>
     </nav>
@@ -523,9 +524,9 @@
 
     <!-- Hero do manual -->
     <div class="page-hero">
-      <div class="page-hero__badge">📘 Documentação Completa</div>
-      <h1>Manual do Tema<br>Clínica Nodari</h1>
-      <p>Guia detalhado para gerenciar todo o conteúdo do site — sem precisar mexer em código.</p>
+      <div class="page-hero__badge">📘 Documentação & Auditoria</div>
+      <h1>Manual de Uso</h1>
+      <p>Guia detalhado para gerenciar o conteúdo do site, com técnica de SEO e Google Site Kit.</p>
     </div>
 
     <!-- TOC -->
@@ -541,6 +542,7 @@
         <li><a href="#foto-psicologo">Como adicionar foto dos psicólogos</a></li>
         <li><a href="#criar-post">Criando posts no Blog</a></li>
         <li><a href="#comentarios">Área de Comentários</a></li>
+        <li><a href="#google-site-kit">Google Site Kit e Analytics</a></li>
         <li><a href="#yoast-intro">Yoast SEO — Guia completo</a></li>
         <li><a href="#estrutura-arquivos">Estrutura de arquivos do tema</a></li>
         <li><a href="#como-editar-css">Como editar estilos e cores</a></li>
@@ -1193,6 +1195,7 @@
       <p>Em cada post individual, na sidebar direita, há o box <strong>"Discussão"</strong>. Desmarque "Permitir comentários" para desativar apenas naquele post.</p>
     </section>
 
+
     <!-- ════════════════════════════
          YOAST INTRO
     ═════════════════════════════ -->
@@ -1245,6 +1248,32 @@
           <tr><td><strong>Social</strong></td><td>Título e imagem específicos para Facebook/Twitter</td></tr>
         </tbody>
       </table>
+    </section>
+
+    <!-- ════════════════════════════
+         GOOGLE SITE KIT & ANALYTICS
+    ═════════════════════════════ -->
+    <section class="doc-section" id="google-site-kit">
+      <div class="doc-section__header">
+        <div class="doc-section__icon">📊</div>
+        <div>
+          <div class="doc-section__title">Google Site Kit e Analytics</div>
+          <div class="doc-section__subtitle">Como monitorar o tráfego e desempenho do site</div>
+        </div>
+      </div>
+
+      <p>O site está integrado com os serviços do Google através do plugin oficial <strong>Site Kit por Google</strong>. Isso permite ver as métricas de tráfego diretamente no painel do WordPress.</p>
+
+      <h3>Como acessar as métricas</h3>
+      <div class="path">WP Admin <span>›</span> Site Kit <span>›</span> Painel</div>
+
+      <p>O painel do Site Kit exibe as seguintes informações:</p>
+      <ul class="doc-list">
+        <li><strong>Tráfego:</strong> Quantidade de visitantes, canais de origem (Direto, Orgânico, Social) e dispositivos usados.</li>
+        <li><strong>Conteúdo:</strong> As páginas e posts mais visitados do seu site.</li>
+        <li><strong>Velocidade:</strong> O desempenho de carregamento do site medido pelo PageSpeed Insights.</li>
+        <li><strong>Search Console:</strong> Como as pessoas estão encontrando o site no Google (impressões e cliques).</li>
+      </ul>
     </section>
 
     <!-- ════════════════════════════
@@ -1551,10 +1580,16 @@ e online. Agende sua consulta!</span></pre>
 </div>
 
 <footer style="background:var(--dark);color:rgba(255,255,255,0.5);text-align:center;padding:32px 24px;font-size:13px;margin-top:0;">
-  <div style="margin-bottom:6px;color:rgba(255,255,255,0.85);font-weight:600;font-size:14px;">
-    Desenvolvido por <span style="color:var(--teal)">Kairos Solutions IT</span>
+  <div style="margin-bottom:6px;color:rgba(255,255,255,0.85);font-weight:600;font-size:15px;">
+    Criado por <span style="color:var(--teal)">Kairos Soluções</span>
   </div>
-  <div>Qualquer dúvida, entre em contato com a equipe de desenvolvimento.</div>
+  <div style="margin-top:8px;">
+    <a href="https://api.whatsapp.com/send/?phone=5511963175715&text&type=phone_number&app_absent=0"
+       target="_blank"
+       style="color:var(--teal);font-weight:600;text-decoration:none;border:1px solid var(--teal);padding:6px 18px;border-radius:20px;display:inline-block;margin-top:4px;">
+      💬 Entre em contato
+    </a>
+  </div>
 </footer>
 
 <script>
